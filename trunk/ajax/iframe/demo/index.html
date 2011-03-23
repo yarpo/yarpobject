@@ -1,0 +1,45 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="pl" lang="pl">
+
+<head>
+	<title>Ajax na iframe</title>
+	<meta http-equiv="content-type" content="text/html;charset=utf-8" />
+	<script type="text/javascript" src="http://yarpobject.googlecode.com/svn/trunk/ajax/iframe/XMLHttpIframeRequest.js"></script>
+	<script type="text/javascript">
+		
+		function test()
+		{
+			var oClient = new XMLHttpIframeRequest();
+
+			// jesli chcesz uzyc xml, daj plik test.xml
+			oClient.open('POST', 'test.php');
+
+			// odkomentuj ponizsza linie, aby uzywac xml
+			//oClient.setRequestHeader("Content-Type", "text/xml");
+
+			// odkomentuj, aby wyswietlic wszystkie naglowki
+			//alert('Nagłówki:\n' + oClient.getAllResponseHeaders());
+
+			oClient.onreadystatechange = function() 
+			{ 
+				if (4 == this.readyState)
+				{
+					// odkomentuj, jesli uzywasz xml:
+					//alert(this.responseXML.getElementsByTagName('from')[0].firstChild.nodeValue);
+
+					alert(this.responseText);
+				}
+			}
+
+			oClient.send('a=1&b=2&c=4');			
+		}
+	</script>
+</head>
+
+<body>
+	<button onclick="test()">Test</button>
+	<p>Więcej na stronie: <a href="http://www.yarpo.pl/2011/03/23/ajax-w-oparciu-o-plywajaca-ramke/">Ajax w oparciu o pływającą ramkę</a></p>
+</body>
+
+</html>
