@@ -1,5 +1,5 @@
 // Obiekt imitujacy XMLHttpRequest za pomoca Iframe
-// autor: Patryk yarpo Jar yarpo.pl
+// autor: Patryk yarpo Jar, yarpo.pl
 // data: 21-03-2011 r.
 
 var XMLHttpIframeRequest = function() 
@@ -8,8 +8,8 @@ var XMLHttpIframeRequest = function()
 
 	var oDiv = null
 		bAsync = true,
-		aHeaders = [],
-		bXml = false;
+		bXml = false,
+		aHeaders = [];
 
 	function CONST(k)
 	{
@@ -27,7 +27,8 @@ var XMLHttpIframeRequest = function()
 			oDiv.style.border = "none";
 			oDiv.style.width = '0';
 			oDiv.style.height = '0';
-			oDiv.innerHTML = '<iframe name="'+id+'" id="'+id+'" style="border:none; width:0;height:0;"></iframe>';
+			oDiv.innerHTML = '<iframe name="'+id+'" id="'+id + 
+				'" style="border:none; width:0;height:0;"></iframe>';
 			document.body.appendChild(oDiv);
 			oDiv.iframe = document.getElementById(id);
 			oDiv.form = document.createElement('form');
@@ -51,7 +52,8 @@ var XMLHttpIframeRequest = function()
 		for(var i = 0; i < params.length; i++)
 		{
 			var keyVal = params[i].split('=');
-			oDiv.form.innerHTML += '<input type="hidden" name="'+ keyVal[0] +'" value="'+ keyVal[1] +'">';
+			oDiv.form.innerHTML += '<input type="hidden" name="' + 
+				keyVal[0] +'" value="'+ keyVal[1] +'">';
 		}
 	}	
 	function fOpen(method, url, async)
@@ -70,8 +72,8 @@ var XMLHttpIframeRequest = function()
 
 			oDiv.iframe.onload = function()
 			{
-				console.log('onload set');
-				fSetSelfVals(CONST('READY'), document.getElementById(CONST('ID')).contentWindow.document);
+				fSetSelfVals(CONST('READY'), 
+					document.getElementById(CONST('ID')).contentWindow.document);
 				oSelf.onreadystatechange.apply(oSelf);
 			}
 			oDiv.form.submit();
@@ -91,7 +93,6 @@ var XMLHttpIframeRequest = function()
 		}
 		else if (response)
 		{
-			console.log('set value text');
 			oSelf.responseText = response.body.innerHTML;
 		}
 	}
@@ -130,7 +131,6 @@ var XMLHttpIframeRequest = function()
 				}
 			}
 		}
-		
 	}
 
 	return oSelf = {
