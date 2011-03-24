@@ -14,7 +14,7 @@ var XMLHttpIframeRequest = function()
 	function CONST(k)
 	{
 		var c = {	UNSET : 0,  OPENED : 1, LOADING : 3, READY : 4,
-					INTERVAL : 100, ID : 'yXMLHttpIframeRequest' };
+					ID : 'yXMLHttpIframeRequest' };
 		return c[k];
 	}
 
