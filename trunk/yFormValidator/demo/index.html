@@ -14,21 +14,21 @@
 			},
 			success : function(rule)
 			{
-				console.log('[globalna funkcja]', this, rule, 'ok');
+				alert('[globalna funkcja]' + this + rule + 'ok');
 			},
 			items : {
 				'name' : 
 					{
 						rule : 'not empty',
 						required : true,
-						error : function(rule) { alert(this.id + ' nieprawidłowy'); },
+						error : function(rule) { alert(this.id + ' nieprawidłowy'); }
 					},
 				'date' :
 					{
 						rule : 'date',
 						required : false,
 						error : function(rule) { alert(this.id + ' nieprawidłowy'); },
-						success : function(rule) { console.log(this, rule, '[lokalne] poprawny'); }
+						success : function(rule) { alert(this + rule + '[lokalne] poprawny'); }
 					},
 				'email' :
 					{
@@ -38,7 +38,7 @@
 				'site' :
 					{
 						name : 'site',
-						rule : /^http\:\/\//,
+						rule : (/^http\:\/\//),
 						required : false
 					}
 			}
