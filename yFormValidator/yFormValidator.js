@@ -33,6 +33,11 @@ var yFormValidator = function( options )
 	var oForm = document.getElementById(options.form);
 	oForm.onsubmit = function() { return fValidation(); };
 
+	// zwaraca obiekt RegExp z odpowiednim wyrazeniem regularnym
+	// przyjmuje jako parametr string lub obiekt RegExp,
+	// posiada kilka zdeklarowanych klas, np. 'int', 'date', 'email'
+	// @param RegExp|string rule
+	// @return RegExp
 	function fGetREObj( rule )
 	{
 		if ((typeof rule).toLowerCase() === 'string')
@@ -57,25 +62,34 @@ var yFormValidator = function( options )
 		return rule;
 	}
 
+	// obsluga zdarzenia - poprawne lub niepoprawne zwalidowanie
+	// elementu formualrza
+	// @param DOMElem elem - element formularza
+	// @param RegExp - wyrażenie regularne walidujace
+	// @param string event = {'error', 'success'}
 	function fCallHandler( elem, item, event )
 	{
+		// wywolywanej ustalany jest this na element DOM
+
 		if (item[event])
 		{
-			item[event].call(elem, item.rule);
+			return item[event].call(elem, item.rule) || false;
 		}
-		else if (options.error)
+		else if (options[event])
 		{
-			options[event].call(elem, item.rule);
+			return options[event].call(elem, item.rule) || false;
 		}
+		// brak funkcji obslugi zdarzen
+		return true;
 	}
 
+	// waliduje formularz zgodnie z przekazana konfiguracja
 	function fValidation()
 	{
 		var items = options.items,
 			success = true,
 			item,
-			elem,
-			re;
+			elem;
 
 		for (item in items) 
 		{
@@ -83,18 +97,17 @@ var yFormValidator = function( options )
 			{
 				elem = oForm[item];
 				item = items[item];
-				re = fGetREObj(item.rule);
+				item.rule = fGetREObj(item.rule);
 
 				if ((!item.required && !elem.value.length) ||
-					(item.required && re.test(elem.value)) || 
-					(!item.required && elem.value.length && re.test(elem.value)))
+					(item.required && item.rule.test(elem.value)) || 
+					(!item.required && elem.value.length && item.rule.test(elem.value)))
 				{
 					fCallHandler( elem, item, 'success' );
 				}
 				else
 				{
-					fCallHandler( elem, item, 'error' );
-					success = false;
+					success = fCallHandler( elem, item, 'error' );
 				}
 			}
 		}
