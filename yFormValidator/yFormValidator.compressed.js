@@ -1,3 +1,5 @@
+// autor: Patryk yarpo Jar 
+// http://www.yarpo.pl/2011/06/06/wykorzystanie-yformvalidator-walidacja-formularzy/
 var yFormValidator=function(_1){
 _1=_1||{};
 var _2=document.getElementById(_1.form);
