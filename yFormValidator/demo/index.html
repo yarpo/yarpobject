@@ -10,25 +10,35 @@
 			form : 'info-form',
 			error : function(rule)
 			{
-				alert('[globalna funkcja] ' + this.id + ' nie spełnia ' + rule);
+				this.style.borderColor = "red";
+				//alert('[globalna funkcja] ' + this.id + ' nie spełnia ' + rule);
 			},
 			success : function(rule)
 			{
-				alert('[globalna funkcja]' + this + rule + 'ok');
+				this.style.borderColor = "green";
+				//alert('[globalna funkcja]' + this + rule + 'ok');
 			},
 			items : {
 				'name' : 
 					{
 						rule : 'not empty',
-						required : true,
-						error : function(rule) { alert(this.id + ' nieprawidłowy'); }
+						required : true
 					},
 				'date' :
 					{
 						rule : 'date',
 						required : false,
-						error : function(rule) { alert(this.id + ' nieprawidłowy'); },
-						success : function(rule) { alert(this + rule + '[lokalne] poprawny'); }
+						error : function(rule) 
+						{ 
+							this.value = this.value.replace(/[\.\-\ ]/g, "/"); 
+							if (rule.test(this.value))
+							{
+								this.style.borderColor = "green";
+								return true;
+							}
+							this.style.borderColor = "red";
+							return false;
+						}
 					},
 				'email' :
 					{
@@ -37,7 +47,6 @@
 					},
 				'site' :
 					{
-						name : 'site',
 						rule : (/^http\:\/\//),
 						required : false
 					}
