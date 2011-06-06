@@ -50,7 +50,7 @@ var yFormValidator = function( options )
 					return (/^.+$/);
 				case 'int':
 				case 'integer':
-					return (/^(\d+)|(-\d)+$/);
+					return (/^(\d+)|(-\d+)$/);
 				case 'date':
 					return (/^(((0[1-9])|(1[0-9])|(2[0-9])|(3[0-1]))\/(01|03|05|07|08|10|12)\/(([2-9][0-9]{3})|(1[6-9][0-9]{2})))|(((0[1-9])|(1[0-9])|(2[0-9])|(30))\/(04|06|09|11)\/(([2-9][0-9]{3})|(1[6-9][0-9]{2})))|(((0[1-9])|(1[0-9])|(2[0-8]))\/02\/(([2-9][0-9]{3})|(1[6-9][0-9]{2})))|(29\/02\/(((16|((2|4|6|8)(0|4|8))|((3|5|7|9)(2|6)))00)|([2-9][0-9](04|08|12|16|20|24|28|32|36|40|44|48|52|56|60|64|68|72|76|80|84|88|92|96))|(1[6-9](04|08|12|16|20|24|28|32|36|40|44|48|52|56|60|64|68|72|76|80|84|88|92|96))))$/);
 				case 'email' :
@@ -80,7 +80,7 @@ var yFormValidator = function( options )
 			return options[event].call(elem, item.rule) || false;
 		}
 		// brak funkcji obslugi zdarzen
-		return true;
+		return false;
 	}
 
 	// waliduje formularz zgodnie z przekazana konfiguracja
