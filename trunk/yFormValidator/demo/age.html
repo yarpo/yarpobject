@@ -1,0 +1,65 @@
+<html>
+<head>
+	<title>Walidacja formularza RegExp</title>
+	<meta http-equiv="content-type" content="text/html;charset=utf-8" />
+	<script type="text/javascript" src="http://yarpobject.googlecode.com/svn/trunk/yFormValidator/yFormValidator.compressed.js"></script>
+	<script type="text/javascript">
+	function invalid()
+	{
+		this.style.borderColor = "red";
+		return false;
+	}
+
+	function valid()
+	{
+		this.style.borderColor = "green";
+		return true;
+	}
+
+	window.onload = function()
+	{
+		var data = {
+			form : 'info-form',
+			error : function(rule)
+			{
+				return invalid.call(this);
+			},
+			success : function(rule)
+			{
+				return valid.call(this);
+			},
+			items : {
+				'name'  : { rule : 'not empty', required : true },
+				'age'   : { rule : 'integer', required : false,
+					success : function() 
+					{
+						if (this.value < 0) 
+						{
+							return invalid.call(this);
+						}
+						return valid.call(this); 
+					 } 
+				},
+				'date'  : { rule : 'date', required : true },
+				'height'  : { rule : 'decimal',  required : true },
+				'email' : { rule : 'email', required : true },
+				'site'  : { rule : (/^http\:\/\//), required : false }
+			}
+		};
+
+		yFormValidator(data);
+	}
+	</script>
+</head>
+<body>
+	<form action="#" id="info-form">
+		Imię i nazwisko*: <input type="text" name="name" /> (dowolny niepusty ciąg znaków)<br />
+		Wiek: <input type="text" name="age" /> (liczba całkowita)<br />
+		Wzrost (w metrach): <input type="text" name="height" /> (liczba rzeczywista)<br />
+		Data odkrycia Ameryki*: <input type="text" name="date" /> (dd/mm/yyyy)<br />
+		E-mail*: <input type="text" name="email" /> (poprawny składniowo adres e-mail)<br />
+		WWWW : <input type="text" name="site" /> (adres zaczynający się od http)<br />
+		<input type="submit" value="gotowe" />
+	</form>
+</body>
+</html>
