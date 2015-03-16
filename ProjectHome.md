@@ -1,0 +1,1 @@
+Przydatne obiekty Patryka yarpo Jar
